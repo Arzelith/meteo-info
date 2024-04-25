@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { SearchModal } from './';
 import useScreenSize from '../hooks/useScreenSize';
+import { errorHandler } from '../utils/error-handler';
 import { getDirectGeoCoding } from '../api/axios';
 import {
   Container,
@@ -15,7 +16,7 @@ import { FaCloudSun, FaSearch } from 'react-icons/fa';
 import { MdMyLocation } from 'react-icons/md';
 import styles from '../styles/AppBar.module.css';
 
-const AppBar = ({ setCurrentCoords, getCurrentPosition }) => {
+const AppBar = ({ setCurrentCoords, getCurrentPosition, setError }) => {
   const screenSize = useScreenSize();
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [cityName, setCityName] = useState('');
@@ -27,7 +28,7 @@ const AppBar = ({ setCurrentCoords, getCurrentPosition }) => {
         const response = await getDirectGeoCoding(cityName);
         setCityList(response.data);
       } catch (error) {
-        console.log(error);
+        setError(errorHandler(error));
       }
     }
   };
@@ -48,19 +49,17 @@ const AppBar = ({ setCurrentCoords, getCurrentPosition }) => {
           handleClose={() => {
             setShowSearchModal(false);
             setCityName('');
+            setCityList([]);
           }}
           cityList={cityList}
+          setCityList={setCityList}
           setCityName={setCityName}
           cityName={cityName}
           setCurrentCoords={setCurrentCoords}
         />
       )}
 
-      <Navbar
-        bg=''
-        data-bs-theme='dark'
-        className={`${styles.nav_bg} shadow sticky-top`}
-      >
+      <Navbar bg='' data-bs-theme='dark' className={`${styles.nav_bg} shadow sticky-top`}>
         <Container>
           <Navbar.Brand href='#home' className={`${styles.brand}`}>
             <FaCloudSun size={'4rem'} className={`${styles.brand_logo}`} />
@@ -72,11 +71,18 @@ const AppBar = ({ setCurrentCoords, getCurrentPosition }) => {
               <Button
                 variant='light'
                 className={styles.action_button_rounded}
-                onClick={() => setShowSearchModal(true)}
+                onClick={() => {
+                  setShowSearchModal(true);
+                  setCityList([]);
+                }}
               >
                 <FaSearch />
               </Button>
-              <Button variant='light' className={styles.action_button_rounded} onClick={()=>getCurrentPosition()}>
+              <Button
+                variant='light'
+                className={styles.action_button_rounded}
+                onClick={() => getCurrentPosition()}
+              >
                 <MdMyLocation />
               </Button>
             </Navbar.Collapse>
@@ -90,17 +96,18 @@ const AppBar = ({ setCurrentCoords, getCurrentPosition }) => {
                   value={cityName}
                   onChange={(e) => setCityName(e.target.value)}
                 />
-                {screenSize.width > 768 && cityName && (
+                {screenSize.width > 768 && cityName && cityList.length > 0 && (
                   <div className={`w-100 position-absolute mt-2`} data-bs-theme='dark'>
                     <Card className={`${styles.search_control} ms-auto me-auto`}>
                       <ListGroup className={`p-3 bg_dark`}>
                         {cityList.map((item) => (
                           <ListGroupItem
-                          className={`cursor_pointer`}
+                            className={`cursor_pointer`}
                             key={`${item.lat}${item.lon}`}
                             onClick={() => {
                               setCurrentCoords(item.lat, item.lon);
                               setCityName('');
+                              setCityList([]);
                             }}
                           >
                             {`${
@@ -117,7 +124,7 @@ const AppBar = ({ setCurrentCoords, getCurrentPosition }) => {
               <Button
                 variant='primary'
                 className={`${styles.action_button_semi_rounded}`}
-                onClick={()=>getCurrentPosition()}
+                onClick={() => getCurrentPosition()}
               >
                 Ubicación actual
                 <MdMyLocation className='ms-1' />

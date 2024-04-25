@@ -8,7 +8,6 @@ const SearchModal = ({
   cityName,
   setCurrentCoords,
 }) => {
-  
   return (
     <Modal data-bs-theme='dark' show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -20,7 +19,7 @@ const SearchModal = ({
           placeholder='buscar...'
           onChange={(e) => setCityName(e.target.value)}
         />
-        {cityName && (
+        {cityName && cityList.length > 0 && (
           <ListGroup className={`mt-3 ps-2 pe-2`}>
             {cityList.map((item) => (
               <ListGroupItem

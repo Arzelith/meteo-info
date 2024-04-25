@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { getCurrentWeather, getFiveDayForecast, getAirPollution } from '../api/axios';
 import { errorHandler } from '../utils/error-handler';
 
-const lang = 'es'
+const lang = 'es';
 
 const currentWeatherInitialState = {
   city: '',
@@ -132,6 +132,7 @@ const Landing = () => {
       <AppBar
         setCurrentCoords={setCurrentCoords}
         getCurrentPosition={getCurrentPosition}
+        setError={setError}
       />
       <Container className='pt-2 mt-2 mb-4 pb-4 content-wrap'>
         <Row className='p-4'>
