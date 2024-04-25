@@ -1,0 +1,107 @@
+:root {
+  --clr-neutral-100: #fff;
+  --clr-neutral-200: #141515;
+  --clr-neutral-300: #181a1b;
+  --clr-muted-100: #aeb2b6;
+  --fs-100: 0.8rem;
+
+  min-height: 100vh;
+  position: relative;
+}
+
+body {
+  background-color: var(--clr-neutral-200);
+}
+
+/* utility classess  */
+
+.background_bg {
+  background-color: var(--clr-neutral-200);
+}
+
+.dark_bg {
+  background-color: var(--clr-neutral-300);
+}
+
+.muted-text-clr {
+  color: var(--clr-muted-100);
+}
+
+.fs_sm {
+  font-size: var(--fs-100);
+}
+
+.cursor_pointer {
+  cursor: pointer;
+}
+
+.fade-in-content {
+  animation: fadeIn 0.5s;
+  -webkit-animation: fadeIn 0.5s;
+  -moz-animation: fadeIn 0.5s;
+  -o-animation: fadeIn 0.5s;
+  -ms-animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.content-wrap {
+  padding-bottom: 2.5rem;
+}
+
+.footer {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+  width: 100%;
+  height: 3.5rem;
+}
+
+.footer p {
+  color: var(--clr-muted-100);
+}

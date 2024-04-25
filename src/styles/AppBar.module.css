@@ -1,0 +1,48 @@
+.nav_bg{
+  background-color: #141515;
+}
+
+.brand {
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+.brand:hover {
+  color: #fff;
+}
+
+.action_button_rounded {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.4rem;
+  width: 2.4rem;
+  padding: 0.6rem;
+  border-radius: 50%;
+  margin-left: 0.4rem;
+  margin-right: 0.4rem;
+}
+
+.action_button_semi_rounded {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 11rem;
+  height: 3rem;
+}
+
+.action_button_semi_rounded svg {
+  margin-left: 0.3rem;
+  margin-top: 0.2rem;
+  color: #fff;
+}
+
+.search_control {
+  max-width: 35rem;
+}
+
+.location_wrapper{
+  border: 1px solid var(--clr-muted-100);
+  border-radius: 0.25rem;
+}
+

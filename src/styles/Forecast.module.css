@@ -1,0 +1,32 @@
+.list_group_item {
+  max-height: 3.2rem;
+  overflow: hidden;
+  border: none;
+}
+
+.list_group_item img {
+  height: 3.5rem;
+  width: 2.5rem;
+  object-fit: cover;
+  margin-right: 0.5rem;
+}
+
+.list_group_bg {
+  background-color: var(--clr-neutral-300);
+}
+
+.list_group_item p {
+  margin: 0;
+}
+
+.temp {
+  min-width: 2rem;
+}
+
+.day {
+  min-width: 4.5rem;
+}
+
+.month {
+  min-width: 3rem;
+}
