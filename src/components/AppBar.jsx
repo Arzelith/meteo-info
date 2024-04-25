@@ -61,7 +61,7 @@ const AppBar = ({ setCurrentCoords, getCurrentPosition, setError }) => {
 
       <Navbar bg='' data-bs-theme='dark' className={`${styles.nav_bg} shadow sticky-top`}>
         <Container>
-          <Navbar.Brand href='#home' className={`${styles.brand}`}>
+          <Navbar.Brand href={window.location.origin} className={`${styles.brand}`}>
             <FaCloudSun size={'4rem'} className={`${styles.brand_logo}`} />
             meteo-info
           </Navbar.Brand>
