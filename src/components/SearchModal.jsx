@@ -7,16 +7,17 @@ const SearchModal = ({
   setCityName,
   cityName,
   setCurrentCoords,
+  userLang
 }) => {
   return (
     <Modal data-bs-theme='dark' show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title className='text-white'>Busca una ciudad</Modal.Title>
+        <Modal.Title className='text-white'>{userLang==='es'?'Buscar ciudad':'Search city'}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form.Control
           type='text'
-          placeholder='buscar...'
+          placeholder={userLang==='es'?'Buscar...':'Search...'}
           onChange={(e) => setCityName(e.target.value)}
         />
         {cityName && cityList.length > 0 && (

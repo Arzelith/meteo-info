@@ -4,7 +4,7 @@ import styles from '../styles/Now.module.css';
 import { FaRegCalendar } from 'react-icons/fa';
 import { MdOutlineLocationOn } from 'react-icons/md';
 
-const Now = ({ currentWeather, isLoading }) => {
+const Now = ({ currentWeather, isLoading, userLang }) => {
   const { city, country, temperature, description, icon } = currentWeather;
   const firstToUpper = (str) => {
     const first = str[0];
@@ -13,7 +13,7 @@ const Now = ({ currentWeather, isLoading }) => {
 
   return (
     <CardWrapper isLoading={isLoading} height={'15.461rem'}>
-      <Card.Title className='ps-0 pe-0 mb-0'>En este momento</Card.Title>
+      <Card.Title className='ps-0 pe-0 mb-0'>{userLang==='es'?'En este momento':'Now'}</Card.Title>
       <CardBody className='d-flex flex-column  ps-0 pt-0 pb-0'>
         <div className='d-flex flex-row justify-content-between align-items-center'>
           <Card.Text className={`${styles.current_temp} mb-0`}>

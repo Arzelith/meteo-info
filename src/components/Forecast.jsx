@@ -1,46 +1,28 @@
-import { CardWrapper} from './';
+import { CardWrapper } from './';
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import styles from '../styles/Forecast.module.css';
 
-const Forecast = ({ forecast, isLoading }) => {
+const Forecast = ({ forecast, isLoading, userLang }) => {
+
   const getDayName = (millis) => {
-    const dayName = [
-      'domingo',
-      'lunes',
-      'martes',
-      'miércoles',
-      'jueves',
-      'viernes',
-      'sábado',
-    ];
-    const d = new Date(millis * 1000);
-    return dayName[d.getDay()];
+    const locale = userLang === 'es' ? 'es-cl' : 'eng-us';
+    const weekDay = new Date(millis * 1000).toLocaleString(locale, { weekday: 'long' });
+    return weekDay;
   };
 
   const getDayAndMonth = (millis) => {
-    const monthName = [
-      'enero',
-      'febrero',
-      'marzo',
-      'abril',
-      'mayo',
-      'junio',
-      'julio',
-      'agosto',
-      'septiembre',
-      'octubre',
-      'noviembre',
-      'diciembre',
-    ];
     const d = new Date(millis * 1000);
     const day = d.getDate();
-    const month = d.getMonth();
-    return `${monthName[month].slice(0, 3)} ${day}`;
+    const locale = userLang === 'es' ? 'es-cl' : 'eng-us';
+    const month = d.toLocaleString(locale, { month: 'long' });
+    return `${month.slice(0, 3)} ${day}`;
   };
 
   return (
     <CardWrapper isLoading={isLoading} height={'18.996rem'}>
-      <Card.Title>Predicción 5 días</Card.Title>
+      <Card.Title>
+        {userLang === 'es' ? 'Pronóstico próximos cinco días' : 'Five day forecast'}
+      </Card.Title>
       <ListGroup className='mt-4'>
         {forecast.map((item) => (
           <ListGroupItem

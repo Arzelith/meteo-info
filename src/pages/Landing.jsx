@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { getCurrentWeather, getFiveDayForecast, getAirPollution } from '../api/axios';
 import { errorHandler } from '../utils/error-handler';
 
-const lang = 'es';
+const lang = localStorage.getItem('APP_LANG');
+const selectedLang = lang ? lang : 'es';
 
 const currentWeatherInitialState = {
   city: '',
@@ -24,18 +25,22 @@ const dayHighLightsInitialState = {
 };
 
 const Landing = () => {
+  const [userLang, setUserLang] = useState(selectedLang);
   const [currentWeather, setCurrentWeather] = useState(currentWeatherInitialState);
   const [fiveDayForecast, setfiveDayForecast] = useState([]);
   const [hourlyForecast, setHourlyForecast] = useState([]);
   const [airPollution, setAirPollution] = useState([]);
   const [dayHighLights, setDayHighLights] = useState(dayHighLightsInitialState);
-
   const [currentLoading, setCurrentLoading] = useState(true);
   const [fiveDaysForecastLoading, setFiveDaysForecastLoading] = useState(true);
   const [pollutionLoading, setPollutionLoading] = useState(true);
   const [error, setError] = useState(undefined);
-
   const [coords, setCoords] = useState({ lat: -36.8335, lon: -73.0487 });
+
+  const selectLang = (lang) => {
+    setUserLang(lang);
+    localStorage.setItem('APP_LANG', lang);
+  };
 
   const getCurrentPosition = () => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -47,11 +52,15 @@ const Landing = () => {
     setCoords({ lat, lon });
   };
 
-  //CURRENT WEATHER
   const now = async () => {
     try {
       setCurrentLoading(true);
-      const response = await getCurrentWeather(coords.lat, coords.lon, 'metric', lang);
+      const response = await getCurrentWeather(
+        coords.lat,
+        coords.lon,
+        'metric',
+        userLang
+      );
       setCurrentWeather({
         city: response.data.name,
         country: response.data.sys.country,
@@ -79,7 +88,12 @@ const Landing = () => {
   const fiveDays = async () => {
     try {
       setFiveDaysForecastLoading(true);
-      const response = await getFiveDayForecast(coords.lat, coords.lon, 'metric', lang);
+      const response = await getFiveDayForecast(
+        coords.lat,
+        coords.lon,
+        'metric',
+        userLang
+      );
       const fiveDayForArr = response.data.list.filter((item) => {
         const d = new Date(item.dt * 1000);
         const hour = d.getHours();
@@ -115,14 +129,15 @@ const Landing = () => {
     fiveDays();
     pollution();
     //eslint-disable-next-line
-  }, [coords]);
+  }, [coords, userLang]);
 
   if (error) {
     return (
       <DisplayError
         status={error.status}
         statusText={error.statusText}
-        messagge={error.message}
+        message={error.message}
+        userLang={userLang}
       />
     );
   }
@@ -133,15 +148,25 @@ const Landing = () => {
         setCurrentCoords={setCurrentCoords}
         getCurrentPosition={getCurrentPosition}
         setError={setError}
+        selectLang={selectLang}
+        userLang={userLang}
       />
       <Container className='pt-2 mt-2 mb-4 pb-4 content-wrap'>
-        <Row className='p-4'>
+        <Row className='pt-4 pb-4'>
           <Col sm={12} lg={4}>
             <div className='mb-4'>
-              <Now currentWeather={{ ...currentWeather }} isLoading={currentLoading} />
+              <Now
+                currentWeather={{ ...currentWeather }}
+                isLoading={currentLoading}
+                userLang={userLang}
+              />
             </div>
             <div className='mb-4'>
-              <Forecast forecast={fiveDayForecast} isLoading={fiveDaysForecastLoading} />
+              <Forecast
+                forecast={fiveDayForecast}
+                isLoading={fiveDaysForecastLoading}
+                userLang={userLang}
+              />
             </div>
           </Col>
           <Col>
@@ -150,16 +175,21 @@ const Landing = () => {
                 airPollution={airPollution}
                 dayHighLights={dayHighLights}
                 isLoading={pollutionLoading && currentLoading}
+                userLang={userLang}
               />
             </div>
             <div className='mb-4'>
-              <TodayAt forecast={hourlyForecast} isLoading={fiveDaysForecastLoading} />
+              <TodayAt
+                forecast={hourlyForecast}
+                isLoading={fiveDaysForecastLoading}
+                userLang={userLang}
+              />
             </div>
           </Col>
         </Row>
       </Container>
       <footer className='text-white footer text-center dark_bg'>
-        <p className='m-0'>Powerded by OpenWeather</p>
+        <p className='m-0'>Powered by OpenWeather</p>
       </footer>
     </>
   );

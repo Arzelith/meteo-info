@@ -11,12 +11,19 @@ import {
   ListGroup,
   ListGroupItem,
   Card,
+  NavDropdown,
 } from 'react-bootstrap';
 import { FaCloudSun, FaSearch } from 'react-icons/fa';
 import { MdMyLocation } from 'react-icons/md';
 import styles from '../styles/AppBar.module.css';
 
-const AppBar = ({ setCurrentCoords, getCurrentPosition, setError }) => {
+const AppBar = ({
+  setCurrentCoords,
+  getCurrentPosition,
+  setError,
+  selectLang,
+  userLang,
+}) => {
   const screenSize = useScreenSize();
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [cityName, setCityName] = useState('');
@@ -43,7 +50,7 @@ const AppBar = ({ setCurrentCoords, getCurrentPosition, setError }) => {
 
   return (
     <>
-      {screenSize.width <= 768 && (
+      {screenSize.width <= 992 && (
         <SearchModal
           show={showSearchModal}
           handleClose={() => {
@@ -56,6 +63,7 @@ const AppBar = ({ setCurrentCoords, getCurrentPosition, setError }) => {
           setCityName={setCityName}
           cityName={cityName}
           setCurrentCoords={setCurrentCoords}
+          userLang={userLang}
         />
       )}
 
@@ -66,7 +74,7 @@ const AppBar = ({ setCurrentCoords, getCurrentPosition, setError }) => {
             meteo-info
           </Navbar.Brand>
           <Navbar.Toggle />
-          {screenSize.width <= 768 ? (
+          {screenSize.width <= 992 ? (
             <Navbar.Collapse className={`justify-content-end`}>
               <Button
                 variant='light'
@@ -91,12 +99,12 @@ const AppBar = ({ setCurrentCoords, getCurrentPosition, setError }) => {
               <div className='w-100 ms-2 me-2 position-relative'>
                 <Form.Control
                   type='text'
-                  placeholder='Buscar ciudad...'
+                  placeholder={userLang === 'es' ? 'Buscar ciudad...' : 'Search city...'}
                   className={`ms-auto me-auto ${styles.search_control}`}
                   value={cityName}
                   onChange={(e) => setCityName(e.target.value)}
                 />
-                {screenSize.width > 768 && cityName && cityList.length > 0 && (
+                {screenSize.width > 992 && cityName && cityList.length > 0 && (
                   <div className={`w-100 position-absolute mt-2`} data-bs-theme='dark'>
                     <Card className={`${styles.search_control} ms-auto me-auto`}>
                       <ListGroup className={`p-3 bg_dark`}>
@@ -123,14 +131,30 @@ const AppBar = ({ setCurrentCoords, getCurrentPosition, setError }) => {
 
               <Button
                 variant='primary'
-                className={`${styles.action_button_semi_rounded}`}
+                className={`${styles.action_button_semi_rounded} me-4`}
                 onClick={() => getCurrentPosition()}
               >
-                Ubicación actual
+                {userLang === 'es' ? 'Ubicación actual' : 'Current Location'}
                 <MdMyLocation className='ms-1' />
               </Button>
             </Navbar.Collapse>
           )}
+          <NavDropdown
+            title='ES/ENG'
+            id='basic-nav-dropdown'
+            align={'end'}
+            className={`${styles.lang_selector}`}
+          >
+            <NavDropdown.Item active={userLang === 'es'} onClick={() => selectLang('es')}>
+              Español
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              active={userLang === 'eng'}
+              onClick={() => selectLang('eng')}
+            >
+              English
+            </NavDropdown.Item>
+          </NavDropdown>
         </Container>
       </Navbar>
     </>

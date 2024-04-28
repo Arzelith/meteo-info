@@ -3,7 +3,7 @@ import { Card, Row, Col } from 'react-bootstrap';
 import styles from '../styles/TodayAt.module.css';
 import { TbWindmill } from 'react-icons/tb';
 
-const TodayAt = ({ isLoading, forecast }) => {
+const TodayAt = ({ isLoading, forecast, userLang }) => {
   const getHour = (millis) => {
     const d = new Date(millis * 1000);
     const hour = d.getHours();
@@ -12,7 +12,9 @@ const TodayAt = ({ isLoading, forecast }) => {
   };
   return (
     <CardWrapper isLoading={isLoading} height={'18rem'}>
-      <Card.Title>En las próximas horas</Card.Title>
+      <Card.Title>
+        {userLang === 'es' ? 'En las próximas horas' : 'In the next hours'}
+      </Card.Title>
       <Row className='fs_sm'>
         {forecast.map((item) => (
           <Col xs={4} sm={4} md={2} lg={2} key={item.dt} className='g-3'>

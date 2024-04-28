@@ -105,3 +105,10 @@ body {
 .footer p {
   color: var(--clr-muted-100);
 }
+
+.dropdown-menu {
+  min-width: auto !important;
+  a {
+    padding-inline: 0.9rem;
+  }
+}
