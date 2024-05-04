@@ -153,7 +153,7 @@ const Landing = () => {
       />
       <Container className='pt-2 mt-2 mb-4 pb-4 content-wrap'>
         <Row className='pt-4 pb-4'>
-          <Col sm={12} lg={4}>
+          <Col sm={12} md={12} lg={12} xl={4}>
             <div className='mb-4'>
               <Now
                 currentWeather={{ ...currentWeather }}

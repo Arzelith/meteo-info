@@ -42,15 +42,15 @@ const Highlights = ({ airPollution, dayHighLights, isLoading, userLang }) => {
               {userLang === 'es' ? 'Amanecer y anochecer' : 'Sunrise and sunset'}
             </div>
             <div className='d-flex w-50 justify-content-around align-items-center pt-4'>
-              <IoMdSunny size={'3.5rem'} className='me-2' />
-              <div className='text-start'>
+              <IoMdSunny size={'3.5rem'} className='w-50' />
+              <div className='text-start w-50'>
                 <p className='mb-1'>{userLang === 'es' ? 'Amanecer:' : 'Sunrise:'}</p>
                 <p className='mb-0'>{getHour(dayHighLights.sunrise)}</p>
               </div>
             </div>
-            <div className='d-flex w-50 justify-content-around align-items-center fs-sm pt-4'>
-              <FaMoon size={'2.4rem'} />
-              <div className='text-start'>
+            <div className='d-flex w-50 justify-content-around align-items-center pt-4'>
+              <FaMoon size={'2.4rem'} className='w-50'/>
+              <div className='text-start w-50'>
                 <p className='mb-1'>{userLang === 'es' ? 'Anochecer:' : 'Sunset:'}</p>
                 <p className='mb-0'>{getHour(dayHighLights.sunset)}</p>
               </div>
@@ -66,7 +66,7 @@ const Highlights = ({ airPollution, dayHighLights, isLoading, userLang }) => {
             <div className='position-absolute top-0 mt-3'>{airQSummary()}</div>
 
             <div className='d-flex flex-row justify-content-around align-items-center w-100 pt-4'>
-              <FaWind size={'2.5rem'} className='' />
+              <FaWind size={'2.5rem'} />
               <div>
                 <p className='mb-1'>PM25</p>
                 <p className='mb-0'>{airPollution[0]?.components.pm2_5}</p>
@@ -90,25 +90,23 @@ const Highlights = ({ airPollution, dayHighLights, isLoading, userLang }) => {
         <Col sm={12} md={6} className='g-4'>
           <InnerCardWrapper
             classes={
-              'd-flex flex-row p-4 justify-content-between fs_sm h-100 position-relative'
+              'd-flex flex-row p-4 justify-content-between fs_sm h-100 position-relative '
             }
           >
             <div className='position-absolute top-0 mt-3'>
-              {userLang === 'es'
-                ? 'Máxima y mínima'
-                : 'Maximum and minimum'}
+              {userLang === 'es' ? 'Máxima y mínima' : 'Maximum and minimum'}
             </div>
             <div className='d-flex w-50 justify-content-around align-items-center pt-4'>
-              <FaTemperatureHigh size={'2.6rem'} className='me-2' />
-              <div className='text-start'>
-                <p className='mb-1'>{userLang === 'es' ? 'Máxima:' : 'Maximum:'}</p>
+              <FaTemperatureHigh size={'2.6rem'} className='w-50' />
+              <div className='text-start w-50'>
+                <p className='mb-1'>{userLang === 'es' ? 'Máxima:' : 'Max:'}</p>
                 <p className='mb-0'>{`${Math.floor(dayHighLights?.tempMax)}Cº`}</p>
               </div>
             </div>
-            <div className='d-flex w-50 justify-content-around align-items-center fs-sm pt-4'>
-              <FaTemperatureLow size={'2.6rem'} />
-              <div className='text-start'>
-                <p className='mb-1'>{userLang === 'es' ? 'Mínima:' : 'Minimum:'}</p>
+            <div className='d-flex w-50 justify-content-around align-items-center pt-4'>
+              <FaTemperatureLow size={'2.6rem'} className='w-50'/>
+              <div className='text-start w-50'>
+                <p className='mb-1'>{userLang === 'es' ? 'Mínima:' : 'Min:'}</p>
                 <p className='mb-0'>{`${Math.floor(dayHighLights?.tempMin)}Cº`}</p>
               </div>
             </div>
@@ -126,16 +124,18 @@ const Highlights = ({ airPollution, dayHighLights, isLoading, userLang }) => {
                 : 'Humidity and thermal sensation'}
             </div>
             <div className='d-flex w-50 justify-content-around align-items-center pt-4'>
-              <WiHumidity size={'3.8rem'} className='me-2' />
-              <div className='text-start'>
+              <WiHumidity size={'3.8rem'} className='w-50 pe-4' />
+              <div className='text-start w-50'>
                 <p className='mb-1'>{userLang === 'es' ? 'Humedad:' : 'Humidity:'}</p>
                 <p className='mb-0'>{`${dayHighLights?.humidity}%`}</p>
               </div>
             </div>
-            <div className='d-flex w-50 justify-content-around align-items-center fs-sm pt-4'>
-              <LiaTemperatureHighSolid size={'3.1rem'} />
-              <div className='text-start'>
-                <p className='mb-1'>{userLang === 'es' ? 'S.Térmica:' : 'T.Sensation:'}</p>
+            <div className='d-flex w-50 justify-content-around align-items-center pt-4'>
+              <LiaTemperatureHighSolid size={'3.1rem'} className='w-50'/>
+              <div className='text-start w-50'>
+                <p className='mb-1'>
+                  {userLang === 'es' ? 'S.Térmica:' : 'Feels like:'}
+                </p>
                 <p className='mb-0'>{`${Math.floor(dayHighLights?.feelsLike)}Cº`}</p>
               </div>
             </div>
