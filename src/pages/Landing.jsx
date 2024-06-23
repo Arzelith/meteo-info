@@ -35,7 +35,7 @@ const Landing = () => {
   const [fiveDaysForecastLoading, setFiveDaysForecastLoading] = useState(true);
   const [pollutionLoading, setPollutionLoading] = useState(true);
   const [error, setError] = useState(undefined);
-  const [coords, setCoords] = useState({ lat: -36.8335, lon: -73.0487 });
+  const [coords, setCoords] = useState({ lat: -33.4378, lon: -70.6505 });
 
   const selectLang = (lang) => {
     setUserLang(lang);
