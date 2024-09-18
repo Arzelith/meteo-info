@@ -97,7 +97,7 @@ const Landing = () => {
       const fiveDayForArr = response.data.list.filter((item) => {
         const d = new Date(item.dt * 1000);
         const hour = d.getHours();
-        if (hour === 11) {
+        if (hour === 12) {
           return item;
         }
       });
